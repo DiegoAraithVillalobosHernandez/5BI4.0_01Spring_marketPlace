@@ -1,6 +1,7 @@
 package mx.edu.utez.erielit.product.controller;
 
 import mx.edu.utez.erielit.product.model.Product;
+import mx.edu.utez.erielit.product.model.ProductImage;
 import mx.edu.utez.erielit.product.model.ProductRepository;
 import mx.edu.utez.erielit.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 //Las clases de Servicio nos sirven para llevar la lógica del negocio
@@ -45,7 +47,18 @@ public class ProductService {
             return new ResponseEntity<>(new Message("Producto existente", true, null),
                     HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(new Message("ok", false, productRepository.saveAndFlush(product)),
+
+
+        List<ProductImage> images = product.getImages();
+        //Obtenemos el id del producto temporal
+        Product idProduct = productRepository.saveAndFlush(product);
+        //Seteamos a cada imagen el id del producto
+        images.forEach(image -> image.setProduct(idProduct));
+
+        idProduct.setImages(images);
+        Product savedProduct = productRepository.saveAndFlush(idProduct);
+
+        return new ResponseEntity<>(new Message("ok", false, productRepository.saveAndFlush(savedProduct)),
                 HttpStatus.OK);
     }
 
