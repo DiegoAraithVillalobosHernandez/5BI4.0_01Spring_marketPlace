@@ -2,6 +2,7 @@ package mx.edu.utez.erielit.status.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import mx.edu.utez.erielit.category.model.Category;
+import mx.edu.utez.erielit.product.model.Product;
 import mx.edu.utez.erielit.subcategory.model.Subcategory;
 
 import javax.persistence.*;
@@ -20,6 +21,9 @@ public class Status {
     @OneToMany(mappedBy = "status")
     @JsonIgnore
     private  List<Subcategory> subcategories;
+    @OneToMany(mappedBy = "status")
+    @JsonIgnore
+    private List<Product> products;
 
     public Status() {
     }

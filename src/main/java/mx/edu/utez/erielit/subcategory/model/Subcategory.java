@@ -1,9 +1,12 @@
 package mx.edu.utez.erielit.subcategory.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import mx.edu.utez.erielit.category.model.Category;
+import mx.edu.utez.erielit.product.model.Product;
 import mx.edu.utez.erielit.status.model.Status;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Subcategory {
@@ -18,7 +21,9 @@ public class Subcategory {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-
+    @OneToMany(mappedBy = "subcategory")
+    @JsonIgnore
+    private List<Product> products;
     public Subcategory() {
     }
 
