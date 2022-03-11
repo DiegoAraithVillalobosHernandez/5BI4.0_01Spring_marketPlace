@@ -32,7 +32,7 @@ public class JwtProvider {
                 .parseClaimsJws(token).getBody().getSubject();
     }
 
-    public boolean validateToker(String token){
+    public boolean validateToken(String token){
         try {
             Jwts.parser().setSigningKey(secret)
                     .parseClaimsJws(token);

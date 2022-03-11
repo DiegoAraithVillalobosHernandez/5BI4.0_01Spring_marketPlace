@@ -4,6 +4,7 @@ import mx.edu.utez.erielit.user.model.User;
 import mx.edu.utez.erielit.utils.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public ResponseEntity<Message> getAll(){
@@ -20,6 +23,11 @@ public class UserController {
 
     @PostMapping("/")
     public ResponseEntity<Message> save(@RequestBody UserDTO user){
-        return userService.save(new User(user.getUsername(), user.getPassword(), user.getPerson(), user.getRoles()));
+        System.out.println("Hola Diego");
+        return userService.save(
+                new User(user.getUsername(),
+                        passwordEncoder.encode(user.getPassword()),
+                        user.getPerson(),
+                        user.getRoles()));
     }
 }

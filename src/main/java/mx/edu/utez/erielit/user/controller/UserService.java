@@ -46,7 +46,8 @@ public class UserService {
         Person personTemp = user.getPerson();
         personTemp = personRepository.saveAndFlush(personTemp);
         user.setPerson(personTemp);
-        return new ResponseEntity<>(new Message("ok", false, userRepository.saveAndFlush(user)),
+        user = userRepository.saveAndFlush(user);
+        return new ResponseEntity<>(new Message("hola mundo", false, user ),
                 HttpStatus.OK);
     }
 }
