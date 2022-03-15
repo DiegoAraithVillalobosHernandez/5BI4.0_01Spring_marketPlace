@@ -66,4 +66,12 @@ public class AuthUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 }
