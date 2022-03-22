@@ -57,7 +57,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception{
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/auth/**", "/api/contact/").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/user/").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/product/").permitAll()
                 .anyRequest().authenticated()
