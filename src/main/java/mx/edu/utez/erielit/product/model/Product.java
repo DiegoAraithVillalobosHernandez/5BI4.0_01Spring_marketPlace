@@ -22,7 +22,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "subcategory_id")
     private Subcategory subcategory;
-    @OneToMany(mappedBy = "product")
+    //Nos evita tener que ingresar en ambas tablas los registros pues ya lo hace automaticamente
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<ProductImage> images;
 
     public Product() {

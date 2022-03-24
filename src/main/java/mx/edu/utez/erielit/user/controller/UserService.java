@@ -43,11 +43,8 @@ public class UserService {
             return new ResponseEntity<>(new Message("La persona ya cuenta con un usuario", true, null),
                     HttpStatus.BAD_REQUEST);
         }
-        Person personTemp = user.getPerson();
-        personTemp = personRepository.saveAndFlush(personTemp);
-        user.setPerson(personTemp);
-        user = userRepository.saveAndFlush(user);
-        return new ResponseEntity<>(new Message("hola mundo", false, user ),
+
+        return new ResponseEntity<>(new Message("hola mundo", false, userRepository.saveAndFlush(user) ),
                 HttpStatus.OK);
     }
 }

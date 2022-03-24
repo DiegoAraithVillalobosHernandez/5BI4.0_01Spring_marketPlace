@@ -48,7 +48,9 @@ public class ProductService {
                     HttpStatus.BAD_REQUEST);
         }
 
-
+/*
+        Esto nos lo evita fetch = FetchType.EAGER, cascade = CascadeType.PERSIST
+        es decir hacer el registro en ambos sitios
         List<ProductImage> images = product.getImages();
         //Obtenemos el id del producto temporal
         Product idProduct = productRepository.saveAndFlush(product);
@@ -57,8 +59,8 @@ public class ProductService {
 
         idProduct.setImages(images);
         Product savedProduct = productRepository.saveAndFlush(idProduct);
-
-        return new ResponseEntity<>(new Message("ok", false, productRepository.saveAndFlush(savedProduct)),
+*/
+        return new ResponseEntity<>(new Message("ok", false, productRepository.saveAndFlush(product)),
                 HttpStatus.OK);
     }
 

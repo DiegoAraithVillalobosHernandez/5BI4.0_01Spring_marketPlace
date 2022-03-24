@@ -16,7 +16,8 @@ public class User {
     private String username;
     @JsonIgnore
     private String password;
-    @OneToOne
+    //Nos evita tener que ingresar en ambas tablas los registros pues ya lo hace automaticamente
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "person_id")
     private Person person;
     @ManyToMany(mappedBy = "users")
