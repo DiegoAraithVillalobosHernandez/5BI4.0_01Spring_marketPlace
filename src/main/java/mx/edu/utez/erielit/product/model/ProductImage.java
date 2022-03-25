@@ -12,7 +12,7 @@ public class ProductImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @Column(columnDefinition = "blob")
+    @Column(columnDefinition = "LongBlob")
     private byte[] fileBase64;
     @ManyToOne
     @JsonIgnore
