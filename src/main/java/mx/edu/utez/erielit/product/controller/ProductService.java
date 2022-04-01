@@ -42,25 +42,21 @@ public class ProductService {
     public ResponseEntity<Message> save(Product product){
         //No sabemos el id porque es automatico, por ende solo podemos buscar por nombre
         Optional<Product> exists = productRepository.findByName(product.getName());
-
         if (exists.isPresent()){
             return new ResponseEntity<>(new Message("Producto existente", true, null),
                     HttpStatus.BAD_REQUEST);
         }
-
 /*
         Esto nos lo evita fetch = FetchType.EAGER, cascade = CascadeType.PERSIST
         es decir hacer el registro en ambos sitios
+ */
         List<ProductImage> images = product.getImages();
-        //Obtenemos el id del producto temporal
-        Product idProduct = productRepository.saveAndFlush(product);
-        //Seteamos a cada imagen el id del producto
-        images.forEach(image -> image.setProduct(idProduct));
+        product.setImages(null);
+        Product savedProduct = productRepository.saveAndFlush(product);
+        images.forEach(image -> image.setProduct(savedProduct));
+        savedProduct.setImages(images);
 
-        idProduct.setImages(images);
-        Product savedProduct = productRepository.saveAndFlush(idProduct);
-*/
-        return new ResponseEntity<>(new Message("ok", false, productRepository.saveAndFlush(product)),
+        return new ResponseEntity<>(new Message("ok", false, productRepository.saveAndFlush(savedProduct)),
                 HttpStatus.OK);
     }
 

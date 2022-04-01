@@ -14,7 +14,7 @@ public class ProductImage {
     private String name;
     @Column(columnDefinition = "LongBlob")
     private byte[] fileBase64;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonIgnore
     private Product product;
 
